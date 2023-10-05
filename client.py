@@ -11,16 +11,16 @@ def main():
 
     crud = Pyro5.api.Proxy("PYRONAME:lucas_rafael")
     
-    g.pop_up_ok('Proxy ok!')
+    interface.pop_up_ok('Proxy ok!')
 
     SerializerBase.register_class_to_dict(car.Car, car.Car_to_dict)
     SerializerBase.register_dict_to_class('car.Car', car.dict_to_Car)
 
     try:
         crud._pyroBind()
-        g.pop_up_ok('Bind ok!')
+        interface.pop_up_ok('Bind ok!')
     except:
-        g.pop_up_fatal_error('Um erro Ocorreu! \n Encerrando Aplicação!')
+        interface.pop_up_fatal_error('Um erro Ocorreu! \n Encerrando Aplicação!')
         return
 
 

@@ -29,13 +29,14 @@ def main():
     uri = daemon.register(Crud)
     ns.register("lucas_rafael", uri)
 
-    input() 
-
     SerializerBase.register_dict_to_class("car.Car", car.dict_to_Car)
     SerializerBase.register_class_to_dict(car.Car, car.Car_to_dict)
 
-    daemon.requestLoop()
     print(uri)
+
+    input() 
+
+    daemon.requestLoop()
 
 
 if __name__ == "__main__":
