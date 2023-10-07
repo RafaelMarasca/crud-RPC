@@ -1,21 +1,31 @@
+""" 
+Este arquivo implementa o cliente para chamadas de objeto remoto
+"""
+
+__author__ = "Lucas Carvalho and Rafael Marasca Martins"
+
+
 import Pyro5.api
 from Pyro5.api import SerializerBase
 import car
 import codes
 import gui as g
 
-
 def main():
-
+    #Instancia a interface gráfica
     interface = g.gui()
 
+    #Cria o proxy que interceptará as chamadas locais
     crud = Pyro5.api.Proxy("PYRONAME:lucas_rafael")
     
+    #Bloqueia até que a ok seja pressionado
     interface.pop_up_ok('Proxy ok!')
 
+    #Registra os métodos de serialização
     SerializerBase.register_class_to_dict(car.Car, car.Car_to_dict)
     SerializerBase.register_dict_to_class('car.Car', car.dict_to_Car)
 
+    #Tenta associar o proxy ao objeto remoto 
     try:
         crud._pyroBind()
         interface.pop_up_ok('Bind ok!')
@@ -24,6 +34,7 @@ def main():
         return
 
 
+    #Laço para requisições
     while True:
         op = interface.get_event()
 
@@ -70,10 +81,10 @@ def main():
             except Exception:
                 interface.pop_up_error("Erro de Atualização!")
 
-        #Operação de Apagagem
+        #Operação de Exclusão
         elif(op == codes.DELETE):
             entry = interface.get_fields()
-
+            
             try:
                 crud.delete(entry['plate'])
                 interface.pop_up_success("Registro Deletado com Sucesso!")
