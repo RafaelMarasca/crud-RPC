@@ -60,7 +60,6 @@ def main():
                 #Atualiza a interface
                 interface.set_fields(c._lic_plate, c._model, c._brand, c._year, c._km, c._fuel)
                 interface.pop_up_success("Registro Lido com Sucesso!")
-                interface.clear()
             except KeyError:
                 interface.pop_up_error("Registro não Encontrado!")
             except Exception:
@@ -84,7 +83,7 @@ def main():
         #Operação de Exclusão
         elif(op == codes.DELETE):
             entry = interface.get_fields()
-            
+
             try:
                 crud.delete(entry['plate'])
                 interface.pop_up_success("Registro Deletado com Sucesso!")
@@ -92,7 +91,7 @@ def main():
             except KeyError:
                 interface.pop_up_error('Registro não Encontrado!')
             except Exception:
-                interface.pop_up_error('Erro de Deletagem!')
+                interface.pop_up_error('Erro de Exclusão!')
 
 if __name__ == "__main__":
     main()

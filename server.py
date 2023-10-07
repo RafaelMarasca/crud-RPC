@@ -21,12 +21,13 @@ class Crud:
 
     #Adiciona um novo registro ao dicionário interno
     def add(self, obj:car.Car) -> int: 
+        if obj._lic_plate in self._car_dict:
+            raise Exception
         self._car_dict[obj._lic_plate] = obj
 
     #Remove um registro do dicionário interno
     def delete(self, lic_plate:str) -> int:
-        if lic_plate in self._car_dict:
-            del self._car_dict[lic_plate]
+        del self._car_dict[lic_plate]
 
     #Atualiza um registro do dicionário interno
     def update(self, obj:car.Car):
